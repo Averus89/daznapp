@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_toast">Błąd serwera</string>
+    <string name="image_view_content_description">Miniaturka</string>
+    <string name="permision_alert_dialog_explanation_message">DaznApp potrzebuje dostępu do internetu, aby działać. Proszę przyznać aplikacji pozwolenie na dostęp do internetu.</string>
+    <string name="permision_alert_dialog_explanation_title">Brak pozwolenia</string>
+    <string name="title_events">Wydarzenia</string>
+    <string name="title_schedule">Harmonogram</string>
+</resources>

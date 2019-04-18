@@ -13,13 +13,13 @@ public class RestStub{
     public static void stubEventsEndpointWithError(int errorCode){
         String url = "/getEvents/";
         BaseUrlChangingInterceptor.get().setInterceptor(ServerConfig.LOCAL_HOST + url);
-        stubFor(get(urlPathMatching(url)).willReturn(aResponse().withStatus(errorCode)));
+        stubFor(get(urlPathMatching(url)).willReturn(aResponse().withStatus(errorCode).withFixedDelay(5000)));
     }
 
     public static void stubEventsWithBody(){
         String url = "/getEvents/";
         BaseUrlChangingInterceptor.get().setInterceptor(ServerConfig.LOCAL_HOST + url);
         String jsonBody = AssetReaderUtil.asset("getEvents.json");
-        stubFor(get(urlPathMatching(url)).willReturn(aResponse().withStatus(200).withBody(jsonBody)));
+        stubFor(get(urlPathMatching(url)).willReturn(aResponse().withStatus(200).withBody(jsonBody).withFixedDelay(5000)));
     }
 }

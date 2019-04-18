@@ -5,21 +5,17 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.test.espresso.IdlingResource;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import javax.inject.Inject;
+
 import pl.dexbytes.daznapp.DaznApplication;
-import pl.dexbytes.daznapp.IdlingResource.SimpleIdlingResource;
 import pl.dexbytes.daznapp.R;
 import pl.dexbytes.daznapp.adapter.MainPagerAdapter;
 import pl.dexbytes.daznapp.dagger.scope.DaznApiScope;
@@ -34,12 +30,9 @@ public class MainActivity extends AppCompatActivity {
     @DaznApiScope
     DaznApi mDaznApi;
 
-    private ViewerFragment mEventFragment = null, mScheduleFragment = null;
     private ViewPager mViewPager;
     private BottomNavigationView mBottomNavigationMenu;
     private MenuItem mPrevMenuItem;
-    @Nullable
-    private SimpleIdlingResource mIdlingResource;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
         switch (item.getItemId()) {
@@ -70,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager() {
         if(checkPermissions()){
             MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());
-            mEventFragment = new EventViewerFragment();
-            mScheduleFragment = new ScheduleViewerFragment();
+            ViewerFragment eventFragment = new EventViewerFragment();
+            ViewerFragment scheduleFragment = new ScheduleViewerFragment();
 
-            adapter.addFragment(mEventFragment);
-            adapter.addFragment(mScheduleFragment);
+            adapter.addFragment(eventFragment);
+            adapter.addFragment(scheduleFragment);
 
             mViewPager.setAdapter(adapter);
             mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -140,14 +133,5 @@ public class MainActivity extends AppCompatActivity {
     private boolean checkPermissions() {
         return ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.INTERNET)
                 == PackageManager.PERMISSION_GRANTED;
-    }
-
-    @VisibleForTesting
-    @NonNull
-    public IdlingResource getIdlingResource() {
-        if (mIdlingResource == null) {
-            mIdlingResource = new SimpleIdlingResource();
-        }
-        return mIdlingResource;
     }
 }

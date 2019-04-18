@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DaznApp</string>
+    <string name="app_name" translatable="false">DaznApp</string>
     <string name="title_events">Events</string>
     <string name="title_schedule">Schedule</string>
     <string name="permision_alert_dialog_explanation_message">DaznApp needs internet access to work. Please grant Internet access permision tot he application</string>
@@ -7,6 +7,5 @@
     <string name="image_view_content_description">Thumbnail image</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_toast">Server error</string>
 </resources>

@@ -6,6 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.test.espresso.ViewInteraction;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.rule.ActivityTestRule;
+
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,10 +23,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 import pl.dexbytes.daznapp.R;
 import pl.dexbytes.daznapp.RestStub;
 
@@ -75,7 +76,7 @@ public class MainActivityTest {
     public void mainActivityTest() {
         reloadActivity();
         ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.navigation_notifications), withContentDescription("Schedule"),
+                allOf(withId(R.id.navigation_notifications), withContentDescription(R.string.title_schedule),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.navigation),
@@ -85,7 +86,7 @@ public class MainActivityTest {
         bottomNavigationItemView.perform(click());
 
         ViewInteraction bottomNavigationItemView2 = onView(
-                allOf(withId(R.id.navigation_dashboard), withContentDescription("Events"),
+                allOf(withId(R.id.navigation_dashboard), withContentDescription(R.string.title_events),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.navigation),

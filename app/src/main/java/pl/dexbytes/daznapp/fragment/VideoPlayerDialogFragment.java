@@ -5,14 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.MediaController;
-
-import com.devbrackets.android.exomedia.listener.OnPreparedListener;
-import com.devbrackets.android.exomedia.ui.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
+import com.devbrackets.android.exomedia.listener.OnPreparedListener;
+import com.devbrackets.android.exomedia.ui.widget.VideoView;
+
 import pl.dexbytes.daznapp.R;
 import pl.dexbytes.daznapp.utils.StringUtils;
 
@@ -23,7 +23,6 @@ public class VideoPlayerDialogFragment extends DialogFragment implements OnPrepa
     private static final String ARG_VIDEO_URL = "arg_video_url";
     String mVideoUrl;
     VideoView mVideoView;
-    MediaController mMediaController;
 
     public VideoPlayerDialogFragment() {
         // Required empty public constructor

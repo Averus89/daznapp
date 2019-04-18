@@ -7,6 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.ListPreloader;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.util.ViewPreloadSizeProvider;
@@ -15,12 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import pl.dexbytes.daznapp.R;
 import pl.dexbytes.daznapp.glide.GlideRequest;
 import pl.dexbytes.daznapp.model.Event;
@@ -110,7 +111,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         mOnItemClickListener = onItemClickListener;
     }
 
-    private static CharSequence formatDate(Context context, Date date){
+    public static CharSequence formatDate(Context context, Date date){
         return DateUtils.getRelativeDateTimeString(
                 context,
                 date.getTime(),

@@ -14,6 +14,12 @@ public class EventViewerFragment extends ViewerFragment {
     @Override
     public void onResume() {
         super.onResume();
+        onRefresh();
+    }
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
         mDaznApi.getEvents()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

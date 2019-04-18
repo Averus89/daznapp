@@ -25,7 +25,7 @@ public class ScheduleViewerFragment extends ViewerFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mTimer.postDelayed(mTimerTask, 0);
+        onRefresh();
     }
 
     @Override
@@ -38,5 +38,11 @@ public class ScheduleViewerFragment extends ViewerFragment {
     public void onComplete() {
         super.onComplete();
         mTimer.postDelayed(mTimerTask, TimeUnit.SECONDS.toMillis(30));
+    }
+
+    @Override
+    public void onRefresh() {
+        mTimer.removeCallbacks(mTimerTask);
+        mTimer.postDelayed(mTimerTask, 0);
     }
 }

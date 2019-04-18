@@ -10,6 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.util.ViewPreloadSizeProvider;
@@ -18,10 +24,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import pl.dexbytes.daznapp.R;
@@ -38,12 +40,13 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class ViewerFragment extends Fragment implements Observer<Event> {
+public abstract class ViewerFragment extends Fragment implements Observer<Event>, SwipeRefreshLayout.OnRefreshListener {
     private static final int PRELOAD_AHEAD_ITEMS = 10;
     private static final String STATE_POSITION_INDEX = "state_position_index";
     private static final String STATE_POSITION_OFFSET = "state_position_offset";
     private LinearLayoutManager layoutManager;
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private EventAdapter mEventAdapter;
     @Inject
     @DaznApiScope
@@ -64,6 +67,12 @@ public abstract class ViewerFragment extends Fragment implements Observer<Event>
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_viewver, container, false);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
         initRecyclerView(view);
         return view;
     }
@@ -141,13 +150,20 @@ public abstract class ViewerFragment extends Fragment implements Observer<Event>
     @Override
     public void onError(Throwable e) {
         mEventAdapter.addAll(mEventList);
+        mEventAdapter.notifyDataSetChanged();
+        mSwipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getContext(), R.string.error_toast, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onComplete() {
+        mSwipeRefreshLayout.setRefreshing(false);
         mEventAdapter.notifyDataSetChanged();
         layoutManager.scrollToPosition(mIndexPosition);
     }
 
+    @Override
+    public void onRefresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
 }
