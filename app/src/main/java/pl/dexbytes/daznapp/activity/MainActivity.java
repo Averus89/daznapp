@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // No explanation needed; request the permission
             ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.READ_CONTACTS},
+                    new String[]{Manifest.permission.INTERNET},
                     INTERNET_PERMISSION_REQUEST);
         }
     }
